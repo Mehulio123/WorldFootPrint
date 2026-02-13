@@ -156,13 +156,3 @@ It demonstrates:
 * Relational data modeling
 * Analytics-driven features
 * Clean, production-ready system design
-
----
-
-If you'd like, I can also:
-
-* Make a **more “startup-style” README** (shorter, punchier)
-* Make a **more technical README** (with API routes and schema examples)
-* Or create a **version optimized for recruiters scanning in 20 seconds**
-
-Just tell me which style you prefer.
