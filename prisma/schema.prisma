@@ -5,10 +5,114 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
+
+}
+
+//User & Authentication
+model User {
+  id        String   @id @default(cuid())//id identifies that we are uniquely doing each row, cuid is a function that generates a unique string id for each user
+  email     String   @unique //one account per email
+  password  String  // Backend Hash Bcrypting 
+  name      String? //storing the name SICKOOO
+  homeCity  String? //for travel radius from home analytics
+
+  trips Trip[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email])
+}
+
+// Trips tracker
+
+model Trip {
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  startDate   DateTime?
+  endDate     DateTime?
+  
+  // Privacy & sharing
+  isPublic    Boolean   @default(false)
+  shareToken  String?   @unique // For shareable links
+  
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)//Setting up a relationship fields, so it knows to delete trips of users who are deleted. 
+  
+  segments    Segment[] //tracking segements of a trip
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  @@index([userId])
+  @@index([shareToken])
+}
+
+
+//tracking individual Routes/movements within a trip, e.g., from home to airport, airport to hotel, etc. Each segment can have its own mode of transport, distance, and duration.
+model Segment {
+  id          String    @id @default(cuid())
+  tripId      String
+  trip        Trip      @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  
+  // Route: From → To
+  originId      String
+  origin        Place     @relation("SegmentOrigin", fields: [originId], references: [id])
+  
+  destinationId String
+  destination   Place     @relation("SegmentDestination", fields: [destinationId], references: [id])
+  
+  // Travel details
+  transportMode String    // 'flight', 'train', 'car', 'bus', 'ferry', 'walk', 'bike'
+  distance      Float?    // Distance in kilometers (auto-calculated)
+  carbonFootprint Float?  // CO2 emissions in kg (calculated based on mode + distance)
+  
+  // Timing
+  departureTime DateTime?
+  arrivalTime   DateTime?
+  
+  // Optional notes
+  notes         String?
+  
+  // Order within trip
+  order         Int       @default(0) // So you can show "Day 1, Day 2" etc
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  @@index([tripId])
+  @@index([originId, destinationId]) // For finding repeated routes
+
+}
+
+model Place {
+  id              String    @id @default(cuid())
+  
+  // Place info
+  name            String    // "Tokyo", "JFK Airport", "Paris"
+  type            String    @default("city") // 'city', 'airport', 'landmark'
+  countryCode     String    // "JP", "US", "FR" (ISO 3166-1 alpha-2)
+  countryName     String    // "Japan", "United States", "France"
+  
+  // Coordinates for mapping
+  latitude        Float
+  longitude       Float
+  
+  // For search/autocomplete
+  displayName     String?   // "Tokyo, Japan" or "John F. Kennedy International Airport"
+  
+  // Relations
+  segmentsOrigin  Segment[] @relation("SegmentOrigin")
+  segmentsDest    Segment[] @relation("SegmentDestination")
+  
+  createdAt       DateTime  @default(now())
+  
+  // Prevent duplicate places (same name + country + coordinates)
+  @@unique([name, countryCode, latitude, longitude])
+  @@index([countryCode]) // For "countries visited" analytics
 }
