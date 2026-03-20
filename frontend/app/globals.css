@@ -5,11 +5,10 @@
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  --color-vintage-cream: #FDEBCE;
+  --color-vintage-brown: #B8935C;
+  --color-vintage-green: #5C8A6C;
 }
 
 @media (prefers-color-scheme: dark) {
