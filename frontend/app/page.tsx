@@ -19,12 +19,12 @@ export default function Home() {
           borderBottom: "1px solid #ece7de",
         }}
       >
-        {/* LEFT */}
+        {/* LEFT LOGO */}
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
           <div
             style={{
-              width: 58,
-              height: 58,
+              width: 100,
+              height: 100,
               position: "relative",
               flexShrink: 0,
             }}
@@ -38,14 +38,6 @@ export default function Home() {
             />
           </div>
 
-          <div style={{ lineHeight: 1 }}>
-            <div style={{ fontSize: "14px", fontWeight: 500 }}>
-              MY WORLD
-            </div>
-            <div style={{ fontSize: "10px", letterSpacing: "2px" }}>
-              FOOTPRINT
-            </div>
-          </div>
         </div>
 
         {/* RIGHT */}
@@ -142,9 +134,9 @@ export default function Home() {
             position: "relative",
             zIndex: 1,
             width: "100%",
-            height: "520px",
+            height: "110%",
             marginLeft: "10px",
-            overflow: "hidden",
+            //overflow: "hidden",
             borderRadius: "4px",
           }}
         >
