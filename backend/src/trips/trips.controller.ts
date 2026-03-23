@@ -13,15 +13,25 @@ import { TripsService } from './trips.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('trips')
-@UseGuards(JwtAuthGuard)  // All routes require authentication
 export class TripsController {
   constructor(private readonly tripsService: TripsService) {}
+
+  // ==========================================
+  // GET /trips/demo
+  // Public endpoint — returns demo user's trips (no auth required)
+  // NOTE: must be before /:id to avoid route conflict
+  // ==========================================
+  @Get('demo')
+  async getDemoTrips() {
+    return await this.tripsService.getDemoTrips();
+  }
 
   // ==========================================
   // GET /trips
   // Get all trips for logged-in user
   // ==========================================
   @Get()
+  @UseGuards(JwtAuthGuard)
   async getAllTrips(@Request() req: any) {
     return await this.tripsService.getTripsByUser(req.user.userId);
   }
@@ -31,6 +41,7 @@ export class TripsController {
   // Create new trip
   // ==========================================
   @Post()
+  @UseGuards(JwtAuthGuard)
   async createTrip(
     @Request() req: any,
     @Body() body: {
@@ -56,6 +67,7 @@ export class TripsController {
   // NOTE: must be before /:id to avoid route conflict
   // ==========================================
   @Post('recalculate')
+  @UseGuards(JwtAuthGuard)
   async recalculateAll(@Request() req: any) {
     return await this.tripsService.recalculateAllSegments(req.user.userId);
   }
@@ -66,6 +78,7 @@ export class TripsController {
   // NOTE: must be before /:id to avoid route conflict
   // ==========================================
   @Put('segments/:segmentId')
+  @UseGuards(JwtAuthGuard)
   async updateSegment(
     @Param('segmentId') segmentId: string,
     @Request() req: any,
@@ -96,6 +109,7 @@ export class TripsController {
   // NOTE: must be before /:id to avoid route conflict
   // ==========================================
   @Delete('segments/:segmentId')
+  @UseGuards(JwtAuthGuard)
   async deleteSegment(@Param('segmentId') segmentId: string, @Request() req: any) {
     return await this.tripsService.deleteSegment(segmentId, req.user.userId);
   }
@@ -105,6 +119,7 @@ export class TripsController {
   // Get single trip by ID
   // ==========================================
   @Get(':id')
+  @UseGuards(JwtAuthGuard)
   async getTripById(@Param('id') id: string, @Request() req: any) {
     return await this.tripsService.getTripById(id, req.user.userId);
   }
@@ -114,6 +129,7 @@ export class TripsController {
   // Update trip
   // ==========================================
   @Put(':id')
+  @UseGuards(JwtAuthGuard)
   async updateTrip(
     @Param('id') id: string,
     @Request() req: any,
@@ -139,6 +155,7 @@ export class TripsController {
   // Delete trip
   // ==========================================
   @Delete(':id')
+  @UseGuards(JwtAuthGuard)
   async deleteTrip(@Param('id') id: string, @Request() req: any) {
     return await this.tripsService.deleteTrip(id, req.user.userId);
   }
@@ -148,6 +165,7 @@ export class TripsController {
   // Add segment to trip (AUTO-CALCULATES distance & carbon!)
   // ==========================================
   @Post(':id/segments')
+  @UseGuards(JwtAuthGuard)
   async addSegment(
     @Param('id') tripId: string,
     @Request() req: any,

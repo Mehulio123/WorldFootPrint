@@ -7,6 +7,33 @@ export class TripsService {
   constructor(private prisma: PrismaService) {}
 
   // ==========================================
+  // GET DEMO USER TRIPS (PUBLIC - no auth required)
+  // ==========================================
+  async getDemoTrips() {
+    const demoUser = await this.prisma.user.findUnique({
+      where: { email: 'demo@worldfootprint.com' },
+    });
+
+    if (!demoUser) {
+      return [];
+    }
+
+    return await this.prisma.trip.findMany({
+      where: { userId: demoUser.id, isPublic: true },
+      include: {
+        segments: {
+          include: {
+            origin: true,
+            destination: true,
+          },
+          orderBy: { order: 'asc' },
+        },
+      },
+      orderBy: { startDate: 'asc' },
+    });
+  }
+
+  // ==========================================
   // GET ALL TRIPS FOR A USER
   // ==========================================
   async getAllTrips(userId: string) {

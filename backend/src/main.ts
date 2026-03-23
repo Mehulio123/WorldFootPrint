@@ -11,6 +11,10 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);// so this creates the app
+  app.enableCors({
+    origin: ['http://localhost:3001', 'http://localhost:3000'],
+    credentials: true,
+  });
   await app.listen(process.env.PORT ?? 3000);// this starts the server on port 3000. the backend server
 }
 bootstrap();// this is the main entry point of the application. it creates the NestJS application and starts the server on the specified port.
