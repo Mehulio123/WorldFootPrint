@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -52,7 +53,7 @@ export default function Home() {
         >
           <a href="#">About Us</a>
           <a href="#">Github</a>
-          <a href="#">Log In</a>
+          <Link href="/auth/login" style={{ textDecoration: "none", color: "inherit" }}>Log In</Link>
         </div>
       </div>
 
@@ -94,37 +95,43 @@ export default function Home() {
             }}
           >
             {/* DEMO BUTTON */}
-            <button
-              style={{
-                background: "linear-gradient(180deg, #d4ac68 0%, #b9853f 100%)",
-                color: "#fffdf8",
-                padding: "14px 28px",
-                borderRadius: "14px",
-                border: "1px solid rgba(166,118,52,0.55)",
-                fontSize: "22px",
-                boxShadow:
-                  "inset 0 1px 0 rgba(255,255,255,0.45), 0 6px 14px rgba(184,133,63,0.22)",
-                cursor: "pointer",
-              }}
-            >
-              Demo
-            </button>
+            <Link href="/map-demo" style={{ textDecoration: "none" }}>
+              <button
+                style={{
+                  background: "linear-gradient(180deg, #d4ac68 0%, #b9853f 100%)",
+                  color: "#fffdf8",
+                  padding: "14px 28px",
+                  borderRadius: "14px",
+                  border: "1px solid rgba(166,118,52,0.55)",
+                  fontSize: "22px",
+                  boxShadow:
+                    "inset 0 1px 0 rgba(255,255,255,0.45), 0 6px 14px rgba(184,133,63,0.22)",
+                  cursor: "pointer",
+                  width: "100%",
+                }}
+              >
+                Demo
+              </button>
+            </Link>
 
             {/* SIGN UP BUTTON */}
-            <button
-              style={{
-                background: "rgba(255,255,255,0.72)",
-                color: "#6b5a4c",
-                border: "1.5px dashed #c7b8aa",
-                padding: "14px 28px",
-                borderRadius: "14px",
-                fontSize: "22px",
-                boxShadow: "0 2px 10px rgba(80,60,40,0.05)",
-                cursor: "pointer",
-              }}
-            >
-              Sign-up
-            </button>
+            <Link href="/auth/signup" style={{ textDecoration: "none" }}>
+              <button
+                style={{
+                  background: "rgba(255,255,255,0.72)",
+                  color: "#6b5a4c",
+                  border: "1.5px dashed #c7b8aa",
+                  padding: "14px 28px",
+                  borderRadius: "14px",
+                  fontSize: "22px",
+                  boxShadow: "0 2px 10px rgba(80,60,40,0.05)",
+                  cursor: "pointer",
+                  width: "100%",
+                }}
+              >
+                Start Here
+              </button>
+            </Link>
           </div>
         </div>
 

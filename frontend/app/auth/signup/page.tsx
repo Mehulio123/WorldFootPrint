@@ -45,8 +45,8 @@ export default function SignupPage() {
       // Save token to localStorage
       localStorage.setItem('token', response.access_token);
 
-      // Redirect to dashboard
-      router.push('/dashboard');
+      // Redirect to map
+      router.push('/map-demo');
       
     } catch (err: any) {
       // Handle errors
@@ -61,8 +61,7 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen bg-vintage-cream flex items-center justify-center p-4">
-      <div className="bg-white p-8 rounded-2xl shadow-lg max-w-md w-full">
+    <div>
         <div style={{ marginBottom: "28px" }}>
           <p
             style={{
@@ -183,7 +182,6 @@ export default function SignupPage() {
             Log in
           </Link>
         </p>
-      </div>
     </div>
   );
 }

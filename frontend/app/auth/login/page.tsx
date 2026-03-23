@@ -1,6 +1,46 @@
-import Link from "next/link";
+'use client';
+
+import { useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { authApi } from '@/lib/api/auth';
 
 export default function LoginPage() {
+  const router = useRouter();
+
+  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setError('');
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError('');
+
+    try {
+      const response = await authApi.login({
+        email: formData.email,
+        password: formData.password,
+      });
+
+      localStorage.setItem('token', response.access_token);
+      router.push('/map-demo');
+    } catch (err: any) {
+      if (err.response?.data?.message) {
+        setError(err.response.data.message);
+      } else {
+        setError('Invalid email or password. Please try again.');
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div>
       <div style={{ marginBottom: "28px" }}>
@@ -30,24 +70,36 @@ export default function LoginPage() {
         </h2>
       </div>
 
-      <form style={{ display: "grid", gap: "18px" }}>
+      {error && (
+        <div
+          style={{
+            marginBottom: "16px",
+            padding: "12px 16px",
+            background: "#fef2f2",
+            border: "1px solid #fca5a5",
+            borderRadius: "10px",
+            color: "#dc2626",
+            fontSize: "14px",
+            fontFamily: "Arial, sans-serif",
+          }}
+        >
+          {error}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} style={{ display: "grid", gap: "18px" }}>
         <div>
-          <label
-            htmlFor="email"
-            style={{
-              display: "block",
-              marginBottom: "8px",
-              fontSize: "15px",
-              color: "#6a584d",
-              fontFamily: "Arial, sans-serif",
-            }}
-          >
+          <label htmlFor="email" style={labelStyle}>
             Email
           </label>
           <input
             id="email"
+            name="email"
             type="email"
             placeholder="ankit@example.com"
+            value={formData.email}
+            onChange={handleChange}
+            required
             style={inputStyle}
           />
         </div>
@@ -61,14 +113,7 @@ export default function LoginPage() {
               marginBottom: "8px",
             }}
           >
-            <label
-              htmlFor="password"
-              style={{
-                fontSize: "15px",
-                color: "#6a584d",
-                fontFamily: "Arial, sans-serif",
-              }}
-            >
+            <label htmlFor="password" style={{ ...labelStyle, marginBottom: 0 }}>
               Password
             </label>
 
@@ -87,14 +132,26 @@ export default function LoginPage() {
 
           <input
             id="password"
+            name="password"
             type="password"
             placeholder="Enter your password"
+            value={formData.password}
+            onChange={handleChange}
+            required
             style={inputStyle}
           />
         </div>
 
-        <button type="submit" style={primaryButtonStyle}>
-          Log In
+        <button
+          type="submit"
+          style={{
+            ...primaryButtonStyle,
+            opacity: isLoading ? 0.7 : 1,
+            cursor: isLoading ? 'not-allowed' : 'pointer',
+          }}
+          disabled={isLoading}
+        >
+          {isLoading ? 'Logging in...' : 'Log In'}
         </button>
       </form>
 
@@ -121,6 +178,14 @@ export default function LoginPage() {
     </div>
   );
 }
+
+const labelStyle: React.CSSProperties = {
+  display: "block",
+  marginBottom: "8px",
+  fontSize: "15px",
+  color: "#6a584d",
+  fontFamily: "Arial, sans-serif",
+};
 
 const inputStyle: React.CSSProperties = {
   width: "100%",
