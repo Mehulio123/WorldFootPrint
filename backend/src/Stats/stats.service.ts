@@ -111,6 +111,26 @@ export class StatsService {
   }
 
   // ==========================================
+  // DEMO FULL STATS (public — no auth required)
+  // ==========================================
+  async getDemoFull() {
+    const demoUser = await this.prisma.user.findUnique({
+      where: { email: 'demo@worldfootprint.com' },
+    });
+    if (!demoUser) return null;
+    const [overview, byTransport, countries, byYear, repeatedRoutes, carbonBreakdown] =
+      await Promise.all([
+        this.getOverview(demoUser.id),
+        this.getByTransport(demoUser.id),
+        this.getCountries(demoUser.id),
+        this.getByYear(demoUser.id),
+        this.getRepeatedRoutes(demoUser.id),
+        this.getCarbonBreakdown(demoUser.id),
+      ]);
+    return { overview, ...byTransport, ...countries, ...byYear, ...repeatedRoutes, carbonBreakdown };
+  }
+
+  // ==========================================
   // 2. BY TRANSPORT MODE
   // ==========================================
   // Returns breakdown of distance/carbon by each transport mode

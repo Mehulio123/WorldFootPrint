@@ -12,6 +12,12 @@ export class StatsController {
     return await this.statsService.getDemoOverview();
   }
 
+  // Public — returns all stats for the demo account (used by /recap-demo)
+  @Get('demo/full')
+  async getDemoFull() {
+    return await this.statsService.getDemoFull();
+  }
+
   @Get('overview')
   @UseGuards(JwtAuthGuard)
   async getOverview(@Request() req) {

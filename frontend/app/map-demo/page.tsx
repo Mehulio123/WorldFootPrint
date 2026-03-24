@@ -99,7 +99,7 @@ export default function MapDemoPage() {
                 Start Tracking Your Trips
               </Link>
               <Link
-                href="/recap"
+                href="/recap-demo"
                 className="rounded-[18px] px-5 py-4 text-[18px] transition-transform hover:scale-[1.02]"
                 style={{ background: 'rgba(255,255,255,0.78)', color: '#6b4b2f', border: '1px solid rgba(180,150,100,0.25)', textDecoration: 'none', textAlign: 'center' }}
               >
