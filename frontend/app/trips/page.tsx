@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { tripsApi, type Trip, type Segment } from '@/lib/api/trips';
 import { placesApi, searchPlacesGlobal, mapboxFeatureToPlace, type PlaceResult } from '@/lib/api/places';
@@ -247,12 +248,25 @@ export default function TripsPage() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#f8f6f0', padding: '40px 24px', fontFamily: 'Georgia, serif', color: '#4b2e22' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #f7f4ec 0%, #efe7da 100%)', padding: '40px 24px', fontFamily: 'Georgia, serif', color: '#4b2e22' }}>
       <div style={{ maxWidth: 760, margin: '0 auto' }}>
 
         {/* Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 32 }}>
-          <h1 style={{ fontSize: 42, fontWeight: 500, margin: 0 }}>My Trips</h1>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+            <Link
+              href="/map-user"
+              className="btn-pill"
+              style={{
+                color: '#7a5738', border: '1px solid rgba(170,140,95,0.3)',
+                borderRadius: 999, padding: '8px 18px', textDecoration: 'none',
+                fontFamily: 'Arial, sans-serif', fontSize: 14,
+              }}
+            >
+              ← Map
+            </Link>
+            <h1 style={{ fontSize: 36, fontWeight: 500, margin: 0 }}>My Trips</h1>
+          </div>
           <button onClick={() => { setShowAddTrip(v => !v); setTripError(''); }} style={showAddTrip ? secondaryBtnStyle : primaryBtnStyle}>
             {showAddTrip ? 'Cancel' : '+ Add Trip'}
           </button>
@@ -389,11 +403,11 @@ export default function TripsPage() {
 
 // ── Shared styles ─────────────────────────────────────────────────────────────
 const cardStyle: React.CSSProperties = {
-  background: '#fff',
-  borderRadius: 16,
+  background: 'rgba(255,250,242,0.82)',
+  borderRadius: 20,
   padding: 24,
-  boxShadow: '0 2px 12px rgba(80,60,40,0.08)',
-  border: '1px solid #ece7de',
+  boxShadow: '0 4px 14px rgba(85,60,30,0.07)',
+  border: '1px solid rgba(180,150,100,0.2)',
 };
 
 const inputStyle: React.CSSProperties = {
@@ -418,28 +432,30 @@ const labelStyle: React.CSSProperties = {
 };
 
 const primaryBtnStyle: React.CSSProperties = {
-  background: 'linear-gradient(180deg, #d4ac68 0%, #b9853f 100%)',
+  background: 'linear-gradient(180deg, #c9893a 0%, #9e6422 60%, #b5782a 100%)',
   color: '#fffdf8',
   padding: '12px 22px',
   borderRadius: 12,
-  border: '1px solid rgba(166,118,52,0.55)',
+  border: '1px solid rgba(123,79,25,0.35)',
   fontSize: 15,
   fontWeight: 600,
   cursor: 'pointer',
   fontFamily: 'Arial, sans-serif',
-  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.4)',
+  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.22), 0 4px 12px rgba(80,50,20,0.15)',
+  transition: 'transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease',
 };
 
 const secondaryBtnStyle: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.8)',
+  background: 'rgba(255,255,255,0.78)',
   color: '#6b5a4c',
-  border: '1.5px solid #c7b8aa',
+  border: '1.5px solid rgba(180,150,100,0.3)',
   padding: '12px 22px',
   borderRadius: 12,
   fontSize: 15,
   fontWeight: 600,
   cursor: 'pointer',
   fontFamily: 'Arial, sans-serif',
+  transition: 'transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease',
 };
 
 const deleteBtnStyle: React.CSSProperties = {
@@ -451,4 +467,5 @@ const deleteBtnStyle: React.CSSProperties = {
   padding: 4,
   lineHeight: 1,
   flexShrink: 0,
+  transition: 'color 0.15s ease, transform 0.15s ease',
 };

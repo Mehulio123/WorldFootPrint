@@ -144,14 +144,19 @@ export default function LoginPage() {
 
         <button
           type="submit"
+          className="btn-gold"
           style={{
-            ...primaryButtonStyle,
+            width: '100%',
+            marginTop: '8px',
+            fontSize: '18px',
+            padding: '15px 20px',
+            borderRadius: '14px',
             opacity: isLoading ? 0.7 : 1,
             cursor: isLoading ? 'not-allowed' : 'pointer',
           }}
           disabled={isLoading}
         >
-          {isLoading ? 'Logging in...' : 'Log In'}
+          {isLoading ? 'Logging in…' : 'Log In'}
         </button>
       </form>
 
@@ -200,16 +205,3 @@ const inputStyle: React.CSSProperties = {
   boxSizing: "border-box",
 };
 
-const primaryButtonStyle: React.CSSProperties = {
-  marginTop: "8px",
-  background: "linear-gradient(180deg, #d4ac68 0%, #b9853f 100%)",
-  color: "#fffdf8",
-  padding: "15px 20px",
-  borderRadius: "14px",
-  border: "1px solid rgba(166,118,52,0.55)",
-  fontSize: "18px",
-  fontWeight: 600,
-  cursor: "pointer",
-  boxShadow:
-    "inset 0 1px 0 rgba(255,255,255,0.4), 0 8px 18px rgba(184,133,63,0.2)",
-};

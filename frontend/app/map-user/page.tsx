@@ -68,12 +68,6 @@ export default function MapUserPage() {
             >
               Log Out
             </button>
-            <div
-              className="flex items-center justify-center overflow-hidden rounded-full border"
-              style={{ width: 54, height: 54, borderColor: '#c7ab79', background: '#fbf7ef', boxShadow: '0 6px 18px rgba(96,70,35,0.08)' }}
-            >
-              <Image src="/images/profile.png" alt="Profile" width={42} height={42} className="rounded-full object-cover" />
-            </div>
           </div>
         </div>
 

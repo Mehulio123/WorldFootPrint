@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import apiClient from '@/lib/api/client';
+import { WorldMapUser } from '@/components/map/WorldMapUser';
 
 /* ─────────────────────────────────────────────────────
    Types
@@ -91,7 +92,7 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <div style={{ marginBottom: 28 }}>
       <h2 style={{ fontSize: 26, color: '#5b3926', margin: 0, fontFamily: 'Georgia, serif' }}>{children}</h2>
-      <div style={{ width: 44, height: 3, background: 'linear-gradient(90deg, #b5792a, #d4ac68)', borderRadius: 2, marginTop: 8 }} />
+      <div style={{ width: 44, height: 3, background: 'linear-gradient(90deg, #b5792a, #d4ac68)', borderRadius: 2, marginTop: 10 }} />
     </div>
   );
 }
@@ -310,8 +311,16 @@ export default function RecapPage() {
           )}
         </div>
 
+        {/* ══ YOUR TRAVEL MAP ══════════════════════════════ */}
+        <div style={{ ...cardBase, padding: '32px 36px', marginBottom: 24 }}>
+          <SectionTitle>Your Routes on the Globe</SectionTitle>
+          <div style={{ borderRadius: 16, overflow: 'hidden', height: 440, background: '#0c1224', boxShadow: '0 20px 45px rgba(30,20,10,0.18)' }}>
+            <WorldMapUser />
+          </div>
+        </div>
+
         {/* ══ HOW YOU MOVE + QUICK CARDS ═══════════════════ */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: 24, marginBottom: 24, alignItems: 'start' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 24, alignItems: 'stretch' }}>
 
           {/* Transport breakdown */}
           <div style={{ ...cardBase, padding: '32px 36px' }}>
@@ -359,30 +368,30 @@ export default function RecapPage() {
             )}
           </div>
 
-          {/* Right quick-cards */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          {/* Right quick-cards — 2×2 grid */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridTemplateRows: 'auto auto', gap: 16, alignContent: 'start' }}>
             {mostVisited && (
-              <div style={{ ...cardBase, padding: '22px 22px' }}>
-                <p style={{ margin: '0 0 8px 0', fontSize: 10, textTransform: 'uppercase', letterSpacing: '1.5px', color: '#9b7a4d', fontFamily: 'Arial, sans-serif' }}>
-                  Most Visited Country
+              <div style={{ ...cardBase, padding: '24px' }}>
+                <p style={{ margin: '0 0 10px 0', fontSize: 10, textTransform: 'uppercase', letterSpacing: '1.5px', color: '#9b7a4d', fontFamily: 'Arial, sans-serif' }}>
+                  Most Visited
                 </p>
-                <div style={{ fontSize: 42, lineHeight: 1, marginBottom: 6 }}>{flagEmoji(mostVisited.countryCode)}</div>
-                <div style={{ fontSize: 20, color: '#5b3926', marginBottom: 4 }}>{mostVisited.countryName}</div>
-                <div style={{ fontSize: 13, color: '#8b6a46', fontFamily: 'Arial, sans-serif' }}>
+                <div style={{ fontSize: 40, lineHeight: 1, marginBottom: 8 }}>{flagEmoji(mostVisited.countryCode)}</div>
+                <div style={{ fontSize: 18, color: '#5b3926', marginBottom: 4 }}>{mostVisited.countryName}</div>
+                <div style={{ fontSize: 12, color: '#8b6a46', fontFamily: 'Arial, sans-serif' }}>
                   {mostVisited.visitCount} visit{mostVisited.visitCount !== 1 ? 's' : ''} · {mostVisited.cities.length} cit{mostVisited.cities.length !== 1 ? 'ies' : 'y'}
                 </div>
                 <div style={{ fontSize: 11, color: '#b5a090', fontFamily: 'Arial, sans-serif', marginTop: 4 }}>
-                  {mostVisited.cities.slice(0, 4).join(', ')}{mostVisited.cities.length > 4 ? '…' : ''}
+                  {mostVisited.cities.slice(0, 3).join(', ')}{mostVisited.cities.length > 3 ? '…' : ''}
                 </div>
               </div>
             )}
             {busiestYear && (
-              <div style={{ ...cardBase, padding: '22px 22px' }}>
-                <p style={{ margin: '0 0 8px 0', fontSize: 10, textTransform: 'uppercase', letterSpacing: '1.5px', color: '#9b7a4d', fontFamily: 'Arial, sans-serif' }}>
+              <div style={{ ...cardBase, padding: '24px' }}>
+                <p style={{ margin: '0 0 10px 0', fontSize: 10, textTransform: 'uppercase', letterSpacing: '1.5px', color: '#9b7a4d', fontFamily: 'Arial, sans-serif' }}>
                   Busiest Year
                 </p>
-                <div style={{ fontSize: 42, color: '#b5792a', lineHeight: 1, marginBottom: 6 }}>{busiestYear.year}</div>
-                <div style={{ fontSize: 13, color: '#8b6a46', fontFamily: 'Arial, sans-serif' }}>
+                <div style={{ fontSize: 40, color: '#b5792a', lineHeight: 1, marginBottom: 8 }}>{busiestYear.year}</div>
+                <div style={{ fontSize: 12, color: '#8b6a46', fontFamily: 'Arial, sans-serif' }}>
                   {busiestYear.trips} trips · {fmt(busiestYear.distanceKm)} km
                 </div>
                 <div style={{ fontSize: 11, color: '#b5a090', fontFamily: 'Arial, sans-serif', marginTop: 4 }}>
@@ -390,15 +399,23 @@ export default function RecapPage() {
                 </div>
               </div>
             )}
-            <div style={{ ...cardBase, padding: '22px 22px' }}>
-              <p style={{ margin: '0 0 8px 0', fontSize: 10, textTransform: 'uppercase', letterSpacing: '1.5px', color: '#9b7a4d', fontFamily: 'Arial, sans-serif' }}>
-                Average Trip
+            <div style={{ ...cardBase, padding: '24px' }}>
+              <p style={{ margin: '0 0 10px 0', fontSize: 10, textTransform: 'uppercase', letterSpacing: '1.5px', color: '#9b7a4d', fontFamily: 'Arial, sans-serif' }}>
+                Avg Trip Distance
               </p>
-              <div style={{ fontSize: 32, color: '#5b3926', lineHeight: 1, marginBottom: 6 }}>
-                {fmt(avgDistPerTrip)} <span style={{ fontSize: 14 }}>km</span>
+              <div style={{ fontSize: 32, color: '#5b3926', lineHeight: 1, marginBottom: 8 }}>
+                {fmt(avgDistPerTrip)} <span style={{ fontSize: 13 }}>km</span>
               </div>
-              <div style={{ fontSize: 13, color: '#8b6a46', fontFamily: 'Arial, sans-serif' }}>{fmt(avgCarbonPerTrip)} kg CO₂ per journey</div>
-              <div style={{ fontSize: 11, color: '#b5a090', fontFamily: 'Arial, sans-serif', marginTop: 4 }}>{avgCarbonPerKm} kg CO₂ per km overall</div>
+              <div style={{ fontSize: 12, color: '#8b6a46', fontFamily: 'Arial, sans-serif' }}>per journey</div>
+            </div>
+            <div style={{ ...cardBase, padding: '24px' }}>
+              <p style={{ margin: '0 0 10px 0', fontSize: 10, textTransform: 'uppercase', letterSpacing: '1.5px', color: '#9b7a4d', fontFamily: 'Arial, sans-serif' }}>
+                Avg CO₂ / Trip
+              </p>
+              <div style={{ fontSize: 32, color: '#5b3926', lineHeight: 1, marginBottom: 8 }}>
+                {fmt(avgCarbonPerTrip)} <span style={{ fontSize: 13 }}>kg</span>
+              </div>
+              <div style={{ fontSize: 12, color: '#8b6a46', fontFamily: 'Arial, sans-serif' }}>{avgCarbonPerKm} kg CO₂ per km</div>
             </div>
           </div>
         </div>
@@ -459,7 +476,7 @@ export default function RecapPage() {
                       ? 'linear-gradient(135deg, rgba(181,121,42,0.1), rgba(212,172,104,0.06))'
                       : 'rgba(255,255,255,0.5)',
                     border: `1px solid ${isBusiest ? 'rgba(181,121,42,0.22)' : 'rgba(190,175,145,0.18)'}`,
-                    borderRadius: 18,
+                    borderRadius: 16,
                     padding: '16px 20px',
                   }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 18, marginBottom: 10 }}>
@@ -573,7 +590,7 @@ export default function RecapPage() {
                 <div key={i} style={{
                   background: 'rgba(255,255,255,0.65)',
                   border: '1px solid rgba(190,175,145,0.22)',
-                  borderRadius: 18,
+                  borderRadius: 16,
                   padding: '18px 20px',
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 10, flexWrap: 'wrap' }}>
@@ -613,7 +630,7 @@ export default function RecapPage() {
               <div key={i} style={{
                 background: 'rgba(255,255,255,0.62)',
                 border: '1px solid rgba(190,175,145,0.2)',
-                borderRadius: 18,
+                borderRadius: 16,
                 padding: '20px 18px',
               }}>
                 <div style={{ fontSize: 34, marginBottom: 10 }}>{f.icon}</div>

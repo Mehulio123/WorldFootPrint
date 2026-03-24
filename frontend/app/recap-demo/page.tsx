@@ -97,7 +97,7 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <div style={{ marginBottom: 28 }}>
       <h2 style={{ fontSize: 26, color: '#5b3926', margin: 0, fontFamily: 'Georgia, serif' }}>{children}</h2>
-      <div style={{ width: 44, height: 3, background: 'linear-gradient(90deg, #b5792a, #d4ac68)', borderRadius: 2, marginTop: 8 }} />
+      <div style={{ width: 44, height: 3, background: 'linear-gradient(90deg, #b5792a, #d4ac68)', borderRadius: 2, marginTop: 10 }} />
     </div>
   );
 }
@@ -407,7 +407,7 @@ export default function RecapDemoPage() {
                   <div key={y.year} style={{
                     background: isBusiest ? 'linear-gradient(135deg, rgba(181,121,42,0.1), rgba(212,172,104,0.06))' : 'rgba(255,255,255,0.5)',
                     border: `1px solid ${isBusiest ? 'rgba(181,121,42,0.22)' : 'rgba(190,175,145,0.18)'}`,
-                    borderRadius: 18, padding: '16px 20px',
+                    borderRadius: 16, padding: '16px 20px',
                   }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 18, marginBottom: 10 }}>
                       <div style={{ minWidth: 56 }}>
@@ -483,7 +483,7 @@ export default function RecapDemoPage() {
             <p style={{ margin: '-18px 0 24px 0', fontSize: 14, color: '#8b6a46', fontFamily: 'Arial, sans-serif' }}>Routes traveled more than once</p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(270px, 1fr))', gap: 14 }}>
               {repeatedRoutes.map((r, i) => (
-                <div key={i} style={{ background: 'rgba(255,255,255,0.65)', border: '1px solid rgba(190,175,145,0.22)', borderRadius: 18, padding: '18px 20px' }}>
+                <div key={i} style={{ background: 'rgba(255,255,255,0.65)', border: '1px solid rgba(190,175,145,0.22)', borderRadius: 16, padding: '18px 20px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 10, flexWrap: 'wrap' }}>
                     <span style={{ fontSize: 13, fontWeight: 600, color: '#5b3926' }}>{r.origin}</span>
                     <span style={{ color: '#b5792a', fontSize: 16 }}>→</span>
@@ -512,7 +512,7 @@ export default function RecapDemoPage() {
           <SectionTitle>By The Numbers</SectionTitle>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 14 }}>
             {funFacts.map((f, i) => (
-              <div key={i} style={{ background: 'rgba(255,255,255,0.62)', border: '1px solid rgba(190,175,145,0.2)', borderRadius: 18, padding: '20px 18px' }}>
+              <div key={i} style={{ background: 'rgba(255,255,255,0.62)', border: '1px solid rgba(190,175,145,0.2)', borderRadius: 16, padding: '20px 18px' }}>
                 <div style={{ fontSize: 34, marginBottom: 10 }}>{f.icon}</div>
                 <div style={{ fontSize: 26, color: '#5b3926', lineHeight: 1, marginBottom: 5, fontWeight: 600 }}>{f.stat}</div>
                 <div style={{ fontSize: 13, color: '#5b3926', fontFamily: 'Arial, sans-serif', marginBottom: 3 }}>{f.label}</div>

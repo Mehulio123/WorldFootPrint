@@ -29,7 +29,7 @@ export default function AuthLayout({
           border: "1px solid #ece7de",
           borderRadius: "24px",
           overflow: "hidden",
-          boxShadow: "0 20px 50px rgba(70, 50, 30, 0.08)",
+          boxShadow: "0 20px 50px rgba(70, 50, 30, 0.1)",
         }}
       >
         {/* LEFT PANEL */}
