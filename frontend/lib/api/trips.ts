@@ -22,6 +22,7 @@ export interface Segment {
   arrivalTime?: string;
   notes?: string;
   order: number;
+  resolvedCoordinates?: [number, number][]; // populated client-side after route resolution
 }
 
 export interface Trip {

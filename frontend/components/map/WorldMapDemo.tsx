@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { WorldMap } from './WorldMap';
 import type { Trip } from '@/lib/api/trips';
 import apiClient from '@/lib/api/client';
+import { resolveTripsRoutes } from '@/lib/map/resolveRoutes';
 
 export function WorldMapDemo() {
   const [trips, setTrips] = useState<Trip[]>([]);
@@ -13,7 +14,8 @@ export function WorldMapDemo() {
   useEffect(() => {
     apiClient
       .get<Trip[]>('/trips/demo')
-      .then((res) => setTrips(res.data))
+      .then((res) => resolveTripsRoutes(res.data, process.env.NEXT_PUBLIC_MAPBOX_TOKEN!))
+      .then((enriched) => setTrips(enriched))
       .catch(() => setError('Failed to load demo trips'))
       .finally(() => setLoading(false));
   }, []);

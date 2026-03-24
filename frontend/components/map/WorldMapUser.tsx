@@ -4,6 +4,7 @@ import { WorldMap } from './WorldMap'; //mapbox component
 import type { Trip } from '@/lib/api/trips';
 import {tripsApi} from '@/lib/api/trips'; //has the get all call with auth
 import {useRouter } from 'next/navigation';
+import { resolveTripsRoutes } from '@/lib/map/resolveRoutes';
 
 
 export function WorldMapUser() {
@@ -21,8 +22,9 @@ export function WorldMapUser() {
         }
     tripsApi
         .getAll()
-        .then((trips) => setTrips(trips)) // Update state with fetched trips
-        .catch(() => setError('Failed to load demo trips'))
+        .then((trips) => resolveTripsRoutes(trips, process.env.NEXT_PUBLIC_MAPBOX_TOKEN!))
+        .then((enriched) => setTrips(enriched))
+        .catch(() => setError('Failed to load your trips'))
         .finally(() => setLoading(false));
     }, []);
 
