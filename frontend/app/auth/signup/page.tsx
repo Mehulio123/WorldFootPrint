@@ -46,7 +46,7 @@ export default function SignupPage() {
       localStorage.setItem('token', response.access_token);
 
       // Redirect to map
-      router.push('/map-demo');
+      router.push('/map-user');
       
     } catch (err: any) {
       // Handle errors

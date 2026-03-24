@@ -29,7 +29,7 @@ export default function LoginPage() {
       });
 
       localStorage.setItem('token', response.access_token);
-      router.push('/map-demo');
+      router.push('/map-user');
     } catch (err: any) {
       if (err.response?.data?.message) {
         setError(err.response.data.message);
