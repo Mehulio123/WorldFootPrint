@@ -45,4 +45,31 @@ export const tripsApi = {
     const response = await apiClient.get(`/trips/${id}`);
     return response.data;
   },
+
+  create: async (data: {
+    title: string;
+    description?: string;
+    startDate?: string;
+    endDate?: string;
+    isPublic?: boolean;
+  }): Promise<Trip> => {
+    const response = await apiClient.post('/trips', data);
+    return response.data;
+  },
+
+  delete: async (id: string): Promise<void> => {
+    await apiClient.delete(`/trips/${id}`);
+  },
+
+  addSegment: async (
+    tripId: string,
+    data: { originId: string; destinationId: string; transportMode: string; notes?: string }
+  ): Promise<Segment> => {
+    const response = await apiClient.post(`/trips/${tripId}/segments`, data);
+    return response.data;
+  },
+
+  deleteSegment: async (segmentId: string): Promise<void> => {
+    await apiClient.delete(`/trips/segments/${segmentId}`);
+  },
 };

@@ -100,6 +100,17 @@ export class StatsService {
   }
 
   // ==========================================
+  // DEMO OVERVIEW (public — no auth required)
+  // ==========================================
+  async getDemoOverview() {
+    const demoUser = await this.prisma.user.findUnique({
+      where: { email: 'demo@worldfootprint.com' },
+    });
+    if (!demoUser) return null;
+    return this.getOverview(demoUser.id);
+  }
+
+  // ==========================================
   // 2. BY TRANSPORT MODE
   // ==========================================
   // Returns breakdown of distance/carbon by each transport mode
