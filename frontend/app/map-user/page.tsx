@@ -107,6 +107,21 @@ export default function MapUserPage() {
               >
                 View Full Recap
               </Link>
+              <div style={{ position: 'relative' }}>
+                <div style={{ height: 1, background: 'linear-gradient(to right, transparent, rgba(160,120,240,0.25), transparent)', marginBottom: 12 }} />
+                <Link
+                  href="/plan"
+                  className="rounded-[14px] transition-all hover:scale-[1.02]"
+                  style={{ background: 'rgba(18,12,38,0.95)', border: '1px solid rgba(150,110,230,0.28)', textDecoration: 'none', boxShadow: '0 4px 16px rgba(80,40,160,0.18)', color: '#c8b0ff', display: 'flex', alignItems: 'center', gap: 10, padding: '13px 18px' }}
+                >
+                  <span style={{ fontSize: 20, filter: 'drop-shadow(0 0 6px rgba(200,176,255,0.5))' }}>✦</span>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontSize: 15, fontFamily: 'Georgia, serif', fontStyle: 'italic', color: '#d4c4ff' }}>Plan a Future Adventure</div>
+                    <div style={{ fontSize: 11, color: 'rgba(200,176,255,0.4)', marginTop: 2, fontFamily: 'Arial, sans-serif' }}>Budget · Duration · AI itinerary</div>
+                  </div>
+                  <span style={{ color: 'rgba(200,176,255,0.35)', fontSize: 16 }}>→</span>
+                </Link>
+              </div>
             </div>
           </aside>
 

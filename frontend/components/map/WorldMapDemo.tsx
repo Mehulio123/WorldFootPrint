@@ -36,5 +36,5 @@ export function WorldMapDemo() {
     );
   }
 
-  return <WorldMap trips={trips} />;
+  return <WorldMap trips={trips} heatPreset="demo" />;
 }
