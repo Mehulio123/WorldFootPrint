@@ -13,13 +13,16 @@ async function bootstrap() {
   }));
 
   // CORS - IMPORTANT for production
+  /*
   app.enableCors({
-    origin: [
-      'http://localhost:3001',
-      'https://world-foot-print.vercel.app/', // Update after deploying frontend
-    ],
-    credentials: true,
-  });
+  origin: [
+    'https://world-foot-print.vercel.app',
+    'https://worldfootprint.vercel.app',
+    'https://worldfootprint-production.up.railway.app', // rarely needed but safe
+  ],
+  credentials: true,
+});*/
+app.enableCors({ origin: true, credentials: true });
 
   const port = process.env.PORT || 3000;
   await app.listen(port);
