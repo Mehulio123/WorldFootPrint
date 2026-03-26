@@ -1,11 +1,13 @@
 import axios from 'axios';
 
+
 const apiClient = axios.create({
-  baseURL: 'http://localhost:3000',//nestjs backend url
-    headers: {
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000',
+  headers: {
     'Content-Type': 'application/json',
   },
 });
+
 
 //add token to requests automatically 
 apiClient.interceptors.request.use((config) => {

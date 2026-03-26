@@ -1,21 +1,28 @@
-import * as dotenv from 'dotenv';
-import * as path from 'path';
-
-// Load .env before NestJS instantiates any module.
-// Without this, process.env.JWT_SECRET would be undefined when
-// auth.module.ts calls JwtModule.register({ secret: ... }).
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
-
 import { NestFactory } from '@nestjs/core';
+import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);// so this creates the app
+  const app = await NestFactory.create(AppModule);
+
+  // Validation
+  app.useGlobalPipes(new ValidationPipe({
+    whitelist: true,
+    forbidNonWhitelisted: true,
+    transform: true,
+  }));
+
+  // CORS - IMPORTANT for production
   app.enableCors({
-    origin: ['http://localhost:3001', 'http://localhost:3000'],
+    origin: [
+      'http://localhost:3001',
+      'https://your-frontend-domain.vercel.app', // Update after deploying frontend
+    ],
     credentials: true,
   });
-  await app.listen(process.env.PORT ?? 3000);// this starts the server on port 3000. the backend server
-}
-bootstrap();// this is the main entry point of the application. it creates the NestJS application and starts the server on the specified port.
 
+  const port = process.env.PORT || 3000;
+  await app.listen(port);
+  console.log(`🚀 Backend running on port ${port}`);
+}
+bootstrap();
