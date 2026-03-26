@@ -16,7 +16,7 @@ async function bootstrap() {
   app.enableCors({
     origin: [
       'http://localhost:3001',
-      'https://your-frontend-domain.vercel.app', // Update after deploying frontend
+      'https://world-foot-print.vercel.app/', // Update after deploying frontend
     ],
     credentials: true,
   });
