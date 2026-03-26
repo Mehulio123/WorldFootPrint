@@ -16,5 +16,13 @@
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
+  },
+  "scripts": {
+    "build": "nest build",
+    "start": "node dist/main.js",
+    "start:dev": "nest start --watch",
+    "start:prod": "node dist/main.js",
+    "postinstall": "prisma generate" 
   }
+
 }
