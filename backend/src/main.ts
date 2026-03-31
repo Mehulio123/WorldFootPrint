@@ -15,13 +15,15 @@ async function bootstrap() {
   // CORS - IMPORTANT for production
   
   app.enableCors({
-  origin: [
-    'https://world-foot-print.vercel.app',
-    'https://worldfootprint.vercel.app',
-    'https://worldfootprint-production.up.railway.app', // rarely needed but safe
-  ],
-  credentials: true,
-});
+    origin: [
+      'http://localhost:3000',
+      'http://localhost:3001',
+      'https://world-foot-print.vercel.app',
+      'https://worldfootprint.vercel.app',
+      'https://worldfootprint-production.up.railway.app',
+    ],
+    credentials: true,
+  });
 //app.enableCors({ origin: true, credentials: true });//for testing 
 
   const port = process.env.PORT || 3000;
