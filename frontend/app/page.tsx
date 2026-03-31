@@ -33,6 +33,7 @@ export default function Home() {
     >
       {/* ══ STICKY NAV ══════════════════════════════════ */}
       <nav
+        className="nav-outer"
         style={{
           position: "sticky",
           top: 0,
@@ -66,6 +67,7 @@ export default function Home() {
 
           {/* Links */}
           <div
+            className="nav-links-row"
             style={{
               display: "flex",
               gap: 28,
@@ -74,13 +76,13 @@ export default function Home() {
               fontFamily: "Arial, sans-serif",
             }}
           >
-            <a href="#features" className="nav-link" style={{ color: "#6c5a4d" }}>
+            <a href="#features" className="nav-link nav-text-only" style={{ color: "#6c5a4d" }}>
               Features
             </a>
-            <a href="#" className="nav-link" style={{ color: "#6c5a4d" }}>
+            <Link href="/about" className="nav-link nav-text-only" style={{ color: "#6c5a4d" }}>
               About
-            </a>
-            <a href="#" className="nav-link" style={{ color: "#6c5a4d" }}>
+            </Link>
+            <a href="https://github.com/Mehulio123/WorldFootPrint" target="_blank" rel="noopener noreferrer" className="nav-link" style={{ color: "#6c5a4d" }}>
               Github
             </a>
             <Link
@@ -111,6 +113,7 @@ export default function Home() {
 
       {/* ══ HERO ════════════════════════════════════════ */}
       <section
+        className="hero-grid"
         style={{
           maxWidth: 1380,
           margin: "0 auto",
@@ -152,6 +155,7 @@ export default function Home() {
           </div>
 
           <h1
+            className="hero-h1"
             style={{
               fontSize: 74,
               lineHeight: 1.04,
@@ -171,6 +175,7 @@ export default function Home() {
           </h1>
 
           <p
+            className="hero-subtitle"
             style={{
               fontSize: 18,
               color: "#7a5a3c",
@@ -184,7 +189,7 @@ export default function Home() {
             the carbon footprint of every adventure you take.
           </p>
 
-          <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+          <div className="hero-buttons" style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
             <Link
               href="/auth/signup"
               className="btn-gold"
@@ -204,7 +209,7 @@ export default function Home() {
         </div>
 
         {/* Right col — browser mockup */}
-        <div className="fade-up-delay-1" style={{ position: "relative" }}>
+        <div className="fade-up-delay-1 hero-right-col" style={{ position: "relative" }}>
           {/* Tiltable map card */}
           <HeroCard>
             <div
@@ -377,6 +382,7 @@ export default function Home() {
       {/* ══ FEATURES ════════════════════════════════════ */}
       <section
         id="features"
+        className="features-section"
         style={{
           maxWidth: 1380,
           margin: "0 auto",
@@ -402,6 +408,7 @@ export default function Home() {
         </div>
 
         <div
+          className="features-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(3, 1fr)",
@@ -441,7 +448,7 @@ export default function Home() {
       </section>
 
       {/* ══ DARK CTA ════════════════════════════════════ */}
-      <section style={{ maxWidth: 1380, margin: "0 auto", padding: "0 48px 96px" }}>
+      <section className="cta-section" style={{ maxWidth: 1380, margin: "0 auto", padding: "0 48px 96px" }}>
         <div
           style={{
             background: "linear-gradient(135deg, #3d2314 0%, #5b3926 45%, #3d2314 100%)",
