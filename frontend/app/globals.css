@@ -239,4 +239,25 @@ button:active {
   .about-h1 { font-size: 38px !important; line-height: 1.1 !important; }
   .about-content { padding: 0 20px 52px !important; gap: 28px !important; }
   .about-cta { padding: 0 20px 64px !important; }
+
+  /* Auth layout */
+  .auth-outer { padding: 0 !important; align-items: stretch !important; }
+  .auth-grid {
+    grid-template-columns: 1fr !important;
+    min-height: 100vh !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+  .auth-left-panel { display: none !important; }
+  .auth-right-panel { padding: 48px 28px !important; align-items: flex-start !important; }
+
+  /* Home nav — hide Sign Up from nav on mobile (it's in the hero) */
+  .nav-signup-hide { display: none !important; }
+
+  /* Recap page */
+  .recap-outer { padding: 12px 14px 60px !important; overflow-x: hidden !important; }
+  .recap-nav { flex-wrap: wrap !important; gap: 10px !important; padding: 14px 16px !important; }
+  .recap-two-col { grid-template-columns: 1fr !important; }
+  .recap-card-pad { padding: 22px 18px !important; }
+  .recap-hero-pad { padding: 24px 20px !important; }
 }

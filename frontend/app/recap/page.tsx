@@ -235,10 +235,10 @@ export default function RecapPage() {
 
   return (
     <div style={{ background: 'linear-gradient(180deg, #f7f4ec 0%, #efe7da 100%)', minHeight: '100vh', fontFamily: 'Georgia, serif', color: '#4b2e22' }}>
-      <div style={{ maxWidth: 1400, margin: '0 auto', padding: '20px 24px 72px' }}>
+      <div className="recap-outer" style={{ maxWidth: 1400, margin: '0 auto', padding: '20px 24px 72px' }}>
 
         {/* ══ NAV ══════════════════════════════════════════ */}
-        <div style={{ ...cardBase, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 28px', marginBottom: 28, backdropFilter: 'blur(4px)', background: 'rgba(255,255,255,0.55)' }}>
+        <div className="recap-nav" style={{ ...cardBase, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 28px', marginBottom: 28, backdropFilter: 'blur(4px)', background: 'rgba(255,255,255,0.55)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
             <div style={{ position: 'relative', width: 62, height: 62 }}>
               <Image src="/images/logo.png" alt="logo" fill className="object-contain" priority />
@@ -259,7 +259,7 @@ export default function RecapPage() {
         </div>
 
         {/* ══ HERO ═════════════════════════════════════════ */}
-        <div style={{ ...cardBase, padding: '36px 40px', marginBottom: 24, background: 'linear-gradient(135deg, rgba(255,250,242,0.95) 0%, rgba(255,243,220,0.88) 100%)' }}>
+        <div className="recap-hero-pad" style={{ ...cardBase, padding: '36px 40px', marginBottom: 24, background: 'linear-gradient(135deg, rgba(255,250,242,0.95) 0%, rgba(255,243,220,0.88) 100%)' }}>
           {/* Personality + world coverage */}
           <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 32, flexWrap: 'wrap', gap: 20 }}>
             <div>
@@ -312,7 +312,7 @@ export default function RecapPage() {
         </div>
 
         {/* ══ YOUR TRAVEL MAP ══════════════════════════════ */}
-        <div style={{ ...cardBase, padding: '32px 36px', marginBottom: 24 }}>
+        <div className="recap-card-pad" style={{ ...cardBase, padding: '32px 36px', marginBottom: 24 }}>
           <SectionTitle>Your Routes on the Globe</SectionTitle>
           <div style={{ borderRadius: 16, overflow: 'hidden', height: 440, background: '#0c1224', boxShadow: '0 20px 45px rgba(30,20,10,0.18)' }}>
             <WorldMapUser />
@@ -320,10 +320,10 @@ export default function RecapPage() {
         </div>
 
         {/* ══ HOW YOU MOVE + QUICK CARDS ═══════════════════ */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 24, alignItems: 'stretch' }}>
+        <div className="recap-two-col" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 24, alignItems: 'stretch' }}>
 
           {/* Transport breakdown */}
-          <div style={{ ...cardBase, padding: '32px 36px' }}>
+          <div className="recap-card-pad" style={{ ...cardBase, padding: '32px 36px' }}>
             <SectionTitle>How You Move</SectionTitle>
             {byTransport.length === 0 ? (
               <p style={{ color: '#9b7a4d', fontFamily: 'Arial, sans-serif' }}>No transport data yet.</p>
@@ -421,7 +421,7 @@ export default function RecapPage() {
         </div>
 
         {/* ══ COUNTRIES GRID ═══════════════════════════════ */}
-        <div style={{ ...cardBase, padding: '32px 36px', marginBottom: 24 }}>
+        <div className="recap-card-pad" style={{ ...cardBase, padding: '32px 36px', marginBottom: 24 }}>
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12, marginBottom: 28 }}>
             <SectionTitle>Countries You've Explored</SectionTitle>
             <span style={{ fontSize: 13, color: '#9b7a4d', fontFamily: 'Arial, sans-serif', marginBottom: 8 }}>
@@ -464,7 +464,7 @@ export default function RecapPage() {
 
         {/* ══ YEAR BY YEAR ═════════════════════════════════ */}
         {byYear.length > 0 && (
-          <div style={{ ...cardBase, padding: '32px 36px', marginBottom: 24 }}>
+          <div className="recap-card-pad" style={{ ...cardBase, padding: '32px 36px', marginBottom: 24 }}>
             <SectionTitle>Year by Year</SectionTitle>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
               {byYear.map(y => {

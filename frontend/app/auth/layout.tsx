@@ -8,6 +8,7 @@ export default function AuthLayout({
 }) {
   return (
     <main
+      className="auth-outer"
       style={{
         minHeight: "100vh",
         background: "#f8f6f0",
@@ -19,6 +20,7 @@ export default function AuthLayout({
       }}
     >
       <div
+        className="auth-grid"
         style={{
           width: "100%",
           maxWidth: "1180px",
@@ -34,6 +36,7 @@ export default function AuthLayout({
       >
         {/* LEFT PANEL */}
         <div
+          className="auth-left-panel"
           style={{
             position: "relative",
             padding: "40px",
@@ -142,6 +145,7 @@ export default function AuthLayout({
 
         {/* RIGHT PANEL */}
         <div
+          className="auth-right-panel"
           style={{
             padding: "56px 52px",
             display: "flex",

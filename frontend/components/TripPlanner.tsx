@@ -86,7 +86,7 @@ export function TripPlanner({
 
   // Preferences
   const [budget, setBudget]     = useState<Budget>('mid-range');
-  const [tripDays, setTripDays] = useState(7);
+  const [tripDays, setTripDays] = useState(5);
 
   async function generate() {
     setState('loading');
@@ -101,9 +101,9 @@ export function TripPlanner({
         body: JSON.stringify({ visitedCountries, budget, tripDays }),
       });
       clearInterval(interval);
-      if (!res.ok) throw new Error('API error');
       const data = await res.json() as TripPlan & { error?: string };
-      if (data.error) throw new Error(data.error);
+      if (!res.ok || data.error) throw new Error(data.error || `Request failed (${res.status})`);
+
       setPlan(data);
       setState('done');
       setOpenDay(1);
@@ -208,13 +208,13 @@ export function TripPlanner({
             <input
               type="range"
               className="trip-slider"
-              min={5} max={21} step={1}
+              min={2} max={21} step={1}
               value={tripDays}
-              style={{ '--pct': `${((tripDays - 5) / 16) * 100}%` } as React.CSSProperties}
+              style={{ '--pct': `${((tripDays - 2) / 19) * 100}%` } as React.CSSProperties}
               onChange={e => setTripDays(Number(e.target.value))}
             />
             <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 6 }}>
-              <span style={{ color: 'rgba(245,222,179,0.25)', fontSize: 11 }}>5 days</span>
+              <span style={{ color: 'rgba(245,222,179,0.25)', fontSize: 11 }}>2 days</span>
               <span style={{ color: 'rgba(245,222,179,0.25)', fontSize: 11 }}>3 weeks</span>
             </div>
           </div>

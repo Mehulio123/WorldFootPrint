@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import Anthropic from '@anthropic-ai/sdk';
+import OpenAI from 'openai';
 
-// Allow up to 60 s for the Anthropic call before Next.js cuts the connection
+// Allow up to 60 s for the OpenAI call before Next.js cuts the connection
 export const maxDuration = 60;
 
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 const BUDGET_LABELS: Record<string, string> = {
   budget:     'budget-conscious (targeting under $1,500 per person all-in)',
@@ -22,15 +24,9 @@ export async function POST(req: NextRequest) {
         : 'no countries yet — this is their first big trip';
 
     const budgetLabel = BUDGET_LABELS[budget] ?? BUDGET_LABELS['mid-range'];
-    const days = Math.min(21, Math.max(5, Number(tripDays)));
+    const days = Math.min(21, Math.max(2, Number(tripDays)));
 
-    const response = await anthropic.messages.create({
-      model: 'claude-opus-4-6',
-      max_tokens: 4096,
-      messages: [
-        {
-          role: 'user',
-          content: `You are an expert adventure travel advisor with deep knowledge of destinations worldwide.
+    const prompt = `You are an expert adventure travel advisor with deep knowledge of destinations worldwide.
 
 A traveler has already visited: ${visitedList}.
 
@@ -87,21 +83,39 @@ Return ONLY a valid JSON object (no markdown code fences, no explanation, just r
   "currency": "Local currency name and rough exchange rate to USD"
 }
 
-Make the itinerary exactly ${days} days. Be vivid and specific — name actual places, dishes, hikes, experiences. Prioritise package options that suit a ${budget} traveler. Package prices should be realistic all-in estimates.`,
-        },
-      ],
-    });
+Make the itinerary exactly ${days} days. Be vivid and specific — name actual places, dishes, hikes, experiences. Prioritise package options that suit a ${budget} traveler. Package prices should be realistic all-in estimates.`;
 
-    const textBlock = response.content.find((b) => b.type === 'text');
-    const text = textBlock?.type === 'text' ? textBlock.text : '';
-
-    // Strip markdown fences if model adds them despite instructions
-    const cleaned = text.replace(/^```(?:json)?\n?/m, '').replace(/\n?```$/m, '').trim();
+    // Retry up to 3 times on rate limit / overload errors
+    let content = '';
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      try {
+        const response = await openai.chat.completions.create({
+          model: 'gpt-4o',
+          max_tokens: 8000,
+          messages: [{ role: 'user', content: prompt }],
+          response_format: { type: 'json_object' },
+        });
+        content = response.choices[0]?.message?.content ?? '';
+        break;
+      } catch (err: unknown) {
+        const isRetryable =
+          err instanceof Error &&
+          (err.message.includes('rate_limit') ||
+           err.message.includes('overloaded') ||
+           err.message.includes('529') ||
+           err.message.includes('429'));
+        if (isRetryable && attempt < 3) {
+          await sleep(attempt * 3000);
+          continue;
+        }
+        throw err;
+      }
+    }
 
     try {
-      return NextResponse.json(JSON.parse(cleaned));
+      return NextResponse.json(JSON.parse(content));
     } catch {
-      const match = cleaned.match(/\{[\s\S]*\}/);
+      const match = content.match(/\{[\s\S]*\}/);
       if (match) return NextResponse.json(JSON.parse(match[0]));
       return NextResponse.json({ error: 'Failed to parse trip plan' }, { status: 500 });
     }

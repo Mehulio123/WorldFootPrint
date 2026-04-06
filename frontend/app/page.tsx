@@ -102,7 +102,7 @@ export default function Home() {
             </Link>
             <Link
               href="/auth/signup"
-              className="btn-gold"
+              className="btn-gold nav-signup-hide"
               style={{ borderRadius: 999, padding: "8px 22px", fontSize: 14 }}
             >
               Sign Up Free
