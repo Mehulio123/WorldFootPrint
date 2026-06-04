@@ -2,5 +2,5 @@
 buildCommand = "cd backend && npm install && npx prisma generate && npx nest build"
 
 [deploy]
-startCommand = "cd backend && node dist/main"
+startCommand = "cd backend && node dist/src/main"
 restartPolicyType = "on_failure"
